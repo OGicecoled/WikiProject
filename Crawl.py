@@ -9,6 +9,7 @@ server = SSHTunnelForwarder(
     ssh_password='x',
     remote_bind_address=('127.0.0.1', 3306)
 )
+
 server.start()
 
 # Connect to MariaDB instance on server
@@ -50,3 +51,4 @@ cursor.execute("INSERT INTO SiteContent(PageText) VALUES ('Test')")
 cnx.commit()
 cursor.close()
 cnx.close()
+server.close()
