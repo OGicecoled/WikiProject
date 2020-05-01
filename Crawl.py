@@ -2,6 +2,7 @@ import wikipedia
 import pymysql
 from sshtunnel import SSHTunnelForwarder
 
+#Test commit from CLI
 # Connect to local CentOS server running MariaDB
 server = SSHTunnelForwarder(
     '192.168.86.153',
