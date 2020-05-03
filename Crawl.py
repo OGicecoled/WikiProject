@@ -1,8 +1,9 @@
-import wikipedia
 import pymysql
 from sshtunnel import SSHTunnelForwarder
+import re
+import wikipedia
 
-# TODO: Find way to pull out x number of longest records in DB and insert into variable
+# TODO: Start creating word cloud from DB title values.
 
 # Connect to local CentOS server running MariaDB
 server = SSHTunnelForwarder(
@@ -48,7 +49,7 @@ def sortTest():
     query = "SELECT PageText FROM SiteContent ORDER BY CHAR_LENGTH(PageText) DESC;"
     cursor.execute(query)
     cnx.commit()
-    record = cursor.fetchone()
+    record = cursor.fetchmany(size=10)
     print(record)
 
 # Closes DB and SSH connections
@@ -60,6 +61,8 @@ def closeConnection():
 i = 1
 for i in range (1,5):
     title = getTitle()
+    title = re.sub(r'[^a-zA-Z]', '', title)
+    title = title.lower()
     print(title)
     queryTitle(title)
 
